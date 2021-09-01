@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <style>
+        .styled-table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  .styled-table thead tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: left;
+  }
+  .styled-table th,
+  .styled-table td {
+      padding: 12px 15px;
+  }
+  .styled-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+      border-bottom: 2px solid #009879;
+  }
+  .styled-table tbody tr.active-row {
+      font-weight: bold;
+      color: #009879;
+  
+  
+  }
+  /* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+body{
+    margin:0;
+}
+.button {
+  border-radius: 4px;
+    background-color: #f4511e;
+    background: #3d7a3d;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 300px;
+    border: solid;
+    border-color: black;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover  {
+  padding-right: 25px;
+  border-color:brown;
+  background: #8a552a;
+}
+
+.button:hover :after {
+  opacity: 1;
+  right: 0;
+}
+  </style>
+</head>
+<body>
+    
+    <div class="topnav">
+        <a class="active" href="http://127.0.0.1:5000/">Home</a>
+        <a href="http://127.0.0.1:5000/login">Result</a>
+        
+        
+      </div>
+        
+    <table class="styled-table" id ="table">
+        <thead>
+            <tr>
+          <th>STUDENT NAME</th>
+          <th>ROLL NUMBER</th>
+          <th>PHYSICS MARKS</th>
+          <th>CHEMISTRY MARKS</th>
+          <th>MATHS MARKS</th>
+          <th>ENGLISH MARKS</th>
+          <th>PHYSICAL EDUCATION MARKS</th> 
+          <th>TOTAL MARKS OBTAINED</th>
+          <th>PERCENTAGE</th>
+          <th>GRADE</th>
+          <th>STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for i  in d %}
+          <tr>
+              
+              <td>{{ b[i] }}</td>
+              <td>{{c[i]}}</td>
+              <td>{{s[i]}}</td>
+              <td>{{e[i]}}</td>
+              <td>{{f[i]}}</td>
+              <td>{{g[i]}}</td>
+              <td>{{h[i]}}</td>
+              <td>{{t2[i]}}</td>
+              <td>{{per[i]}}</td>
+              <td>{{gra[i]}}</td>
+              <td>{{stat[i]}}</td>
+              
+    
+          </tr>
+          {% endfor %}
+            
+        </tbody>
+    </table>
+    <button class = "button" onclick="ExportToExcel('xlsx')">click here to make excel sheet</button>
+
+    <script>
+      function ExportToExcel(type, fn, dl) {
+     var elt = document.getElementById('table');
+     var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+     return dl ?
+       XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+       XLSX.writeFile(wb, fn || ('Markssheet.' + (type || 'xlsx')));
+  }
+
+  </script>
+        
+		
+  
+
+</body>
+</html>
